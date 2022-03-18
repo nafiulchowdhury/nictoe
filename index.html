@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIC-TOE</title>
+
+    <!-- Third Party Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+
+
+
+    <link rel="stylesheet" href="http://nictest.aamaderdokan.com/asset/css/tailwind.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-300">
+    <div class="gamewrap">
+        <div class="gameBox">
+            <div class="over"></div>
+            <div class="myBox bl-0 bt-0"></div>
+            <div class="myBox bt-0"></div>
+            <div class="myBox bt-0 br-0"></div>
+            <div class="myBox bl-0"></div>
+            <div class="myBox"></div>
+            <div class="myBox br-0"></div>
+            <div class="myBox bl-0 bb-0"></div>
+            <div class="myBox bb-0"></div>
+            <div class="myBox bb-0 br-0"></div>
+        </div>
+        <div class="info text-center">
+            <h1 class="text-4xl">
+                Welcome to NIC-TOE
+            </h1>
+            <span class="turn mb-4 text-5xl">
+
+            </span>
+            <br>
+            <span class="refresh btn btn-info mt-4 cursor-pointer px-3 bg-blue-600 rounded-xl text-white text-3xl" onclick="location.reload()">
+                Refresh
+            </span>
+
+        </div>
+    </div>
+
+
+
+    <script>
+        let turnM= new Audio('audio/Swap.mp3');
+        let winM= new Audio('audio/clap.mp3');
+        let overM= new Audio('audio/GameOver.mp3');
+        let turn = "X";
+        $('.turn').html("Turn of: "+turn);
+        function chngTurn(){
+            turnM.play();
+            if(turn==="X"){
+                turn="O";
+            }else if(turn==="O"){
+                turn="X";
+            }
+            $('.turn').html("Turn of: "+turn);
+        }
+        function gameOver(){
+            
+
+            
+                winM.play();
+                $('.turn').html(turn+" Won");
+                $('.over').slideDown('slow');
+                $('.over').css({'display': 'flex', 'justify-content':'center', 'align-items':'center', 'text-align': 'center'});
+                $('.over').html("<span class='text-5xl'><u>'"+turn+"' Won</u><span><br><span class='text-3xl'>Click on <b>Refresh</b> button to start a new game</span>");
+                if($('.myBox').innerText===""){
+                    $(this).hide();
+                }
+            
+
+        }
+        function findWinner(){
+            let text= document.getElementsByClassName('myBox');
+            let wins= [
+                [0,1,2],
+                [3,4,5],
+                [6,7,8],
+                [0,3,6],
+                [1,4,7],
+                [2,5,8],
+                [0,4,8],
+                [2,4,6]
+            ]
+            wins.forEach(e=>{
+                if((text[e[0]].innerText===text[e[1]].innerText) && (text[e[1]].innerText===text[e[2]].innerText) && (text[e[0]].innerText!=="")){
+                    chngTurn();
+                    gameOver();
+                }
+                /*else{
+                    overM.play();
+                    $('.over').slideDown('slow');
+                    $('.over').css({'display': 'flex', 'justify-content':'center', 'align-items':'center', 'text-align': 'center'});
+                    $('.over').html("<span class='text-5xl'><u>Game Over</u><span><br><span class='text-3xl'>Click on <b>Refresh</b> button to start a new game</span>");
+                }*/
+            })
+        }
+        
+
+        if($('.myBox').val()==="" || $('.myBox').val()===" "){
+            $('.myBox').click(function(){
+                $(this).html(turn);
+                if($(this).val()==="O"){
+                    $(this).css('color','red');
+                }
+                chngTurn();
+                findWinner();
+                
+            });
+            
+        }else{
+            $('.myBox').click(function(){
+                alert("Alredy Taken");
+            });
+        }
+        if($('.turn').val()==="X Won" || $('.turn').val()==="O Won"){
+            $('.myBox').click(function (){
+                alert('Already '+$('.turn').val());
+            });
+        }
+        
+
+    </script>
+</body>
+</html>
