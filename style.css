@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.gamewrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+.gameBox{
+    display: grid;
+    grid-template-rows: repeat(3, 10vw);
+    grid-template-columns: repeat(3, 10vw);
+    position: relative;
+}
+.over{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(230, 197, 197,.7);
+    display: none;
+    border: 2px solid black;
+    border-radius: 30px;
+}
+.info{
+    padding: 20px;
+}
+.myBox{
+    border: 3px solid black;
+    font-size: 7vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all ease .6s;
+}
+.myBox:hover{
+    background-color: rgb(219, 253, 242);
+}
+.bt-0{
+    border-top: none;
+}
+.br-0{
+    border-right: none;
+}
+.bl-0{
+    border-left: none;
+}
+.bb-0{
+    border-bottom: none;
+}
+.refresh{
+    margin-top: 80px;
+}
+
+@media screen and (max-width: 950px)
+{
+    .gamewrap{
+        flex-wrap: wrap;
+    }
+    .info{
+        margin-top: -100px;
+    }
+    .gameBox { 
+        width: 90%;
+        height: auto;
+        grid-template-rows: repeat(3, 30vw);
+        grid-template-columns: repeat(3, 30vw);
+    }
+    .myBox{
+        font-size: 18vw;
+    }
+}
